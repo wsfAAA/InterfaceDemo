@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import test.cmcc.com.dialogdemo.basepopupwindow.TestBasePopupWindow;
 import test.cmcc.com.dialogdemo.popwiond.PopwiondButton;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,6 +24,14 @@ public class MainActivity extends AppCompatActivity {
                 popOne();
             }
         });
+        findViewById(R.id.btn_2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TestBasePopupWindow testBasePopupWindow=new TestBasePopupWindow(MainActivity.this,600,600,false);
+                testBasePopupWindow.setAutoShowInputMethod(true);
+                testBasePopupWindow.showPopupWindow(llRoot,Gravity.CENTER);
+            }
+        });
     }
 
     /**
@@ -38,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
              *  x: 弹出窗口的x坐标偏移
              *  y:弹出窗口的y坐标偏移
              */
-//            popwiondButton.showAtLocation(llRoot, Gravity.BOTTOM, 0, 0);
+            popwiondButton.showAtLocation(llRoot, Gravity.BOTTOM, 0, 0);
 
             /**
              *在所附着的视图的左下角的一个弹出窗口中显示内容视图。
