@@ -4,9 +4,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import test.cmcc.com.dialogdemo.basepopupwindow.TestBasePopupWindow;
+import test.cmcc.com.dialogdemo.dialog.DialogTest;
+import test.cmcc.com.dialogdemo.dialog.DialogTow;
 import test.cmcc.com.dialogdemo.popwiond.PopwiondButton;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,11 +31,70 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TestBasePopupWindow testBasePopupWindow=new TestBasePopupWindow(MainActivity.this,600,600,false);
+//                backgroundAlpha(0.4f);
+                TestBasePopupWindow testBasePopupWindow = new TestBasePopupWindow(MainActivity.this, 600, 600, false);
                 testBasePopupWindow.setAutoShowInputMethod(true);
-                testBasePopupWindow.showPopupWindow(llRoot,Gravity.CENTER);
+                testBasePopupWindow.showPopupWindow(llRoot, Gravity.CENTER);
             }
         });
+        findViewById(R.id.btn_3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                backgroundAlpha(1f);
+                showDialog();
+            }
+        });
+
+        findViewById(R.id.btn_4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog2();
+            }
+        });
+    }
+
+    /**
+     * 设置添加屏幕的背景透明度
+     *
+     * @param bgAlpha
+     */
+    public void backgroundAlpha(float bgAlpha) {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = bgAlpha; //0.0-1.0
+        getWindow().setAttributes(lp);
+    }
+
+    private void showDialog2() {
+        DialogTow dialogTow = new DialogTow(this, R.style.custom_dialog);
+        dialogTow.setClickListener(new DialogTow.ClickListener() {
+            @Override
+            public void clickYes() {
+                Toast.makeText(MainActivity.this, "clickYes", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void clickCancel() {
+                Toast.makeText(MainActivity.this, "clickCancel", Toast.LENGTH_SHORT).show();
+            }
+        });
+        dialogTow.show();
+    }
+
+    private void showDialog() {
+        DialogTest.Builder builder = new DialogTest.Builder(this);
+        builder.setClickListener(new DialogTest.Builder.ClickListener() {
+            @Override
+            public void clickYes() {
+                Toast.makeText(MainActivity.this, "clickYes", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void clickCancel() {
+                Toast.makeText(MainActivity.this, "clickCancel", Toast.LENGTH_SHORT).show();
+            }
+        });
+        DialogTest dialogTest = builder.create();
+        dialogTest.show();
     }
 
     /**

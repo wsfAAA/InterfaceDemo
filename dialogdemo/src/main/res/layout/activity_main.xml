@@ -28,6 +28,17 @@
                 android:layout_height="wrap_content"
                 android:text="BasePopupWindow使用"/>
 
+            <Button
+                android:id="@+id/btn_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dialog Builder"/>
+            <Button
+                android:id="@+id/btn_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dialog"/>
+
         </LinearLayout>
 
     </ScrollView>
