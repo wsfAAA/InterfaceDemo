@@ -39,6 +39,12 @@
                 android:layout_height="wrap_content"
                 android:text="Dialog"/>
 
+            <Button
+                android:id="@+id/btn_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DialogFragment"/>
+
         </LinearLayout>
 
     </ScrollView>

@@ -1,5 +1,6 @@
 package test.cmcc.com.dialogdemo;
 
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -9,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import test.cmcc.com.dialogdemo.basepopupwindow.TestBasePopupWindow;
+import test.cmcc.com.dialogdemo.dialog.DialogFramengTest;
 import test.cmcc.com.dialogdemo.dialog.DialogTest;
 import test.cmcc.com.dialogdemo.dialog.DialogTow;
 import test.cmcc.com.dialogdemo.popwiond.PopwiondButton;
@@ -51,6 +53,29 @@ public class MainActivity extends AppCompatActivity {
                 showDialog2();
             }
         });
+
+        findViewById(R.id.btn_5).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialogFragment();
+            }
+        });
+    }
+
+    private void showDialogFragment() {
+        final DialogFramengTest dialogFramengTest=new DialogFramengTest();
+        dialogFramengTest.setCallBack(new DialogFramengTest.DialogFragmentCallBack() {
+            @Override
+            public void cancle() {
+                dialogFramengTest.dismiss();
+            }
+
+            @Override
+            public void yesBtn() {
+                dialogFramengTest.dismiss();
+            }
+        });
+        dialogFramengTest.show(getFragmentManager(),"DialogFramengTest");
     }
 
     /**
