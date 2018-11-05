@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/InterfaceDemo.iml" filepath="$PROJECT_DIR$/InterfaceDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/basedemo/basedemo.iml" filepath="$PROJECT_DIR$/basedemo/basedemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/dialogdemo/dialogdemo.iml" filepath="$PROJECT_DIR$/dialogdemo/dialogdemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/networkdemo/networkdemo.iml" filepath="$PROJECT_DIR$/networkdemo/networkdemo.iml" />
     </modules>

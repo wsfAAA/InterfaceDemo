@@ -1,1 +1,1 @@
-include ':app', ':networkdemo', ':dialogdemo'
+include ':app', ':networkdemo', ':dialogdemo', ':basedemo'
