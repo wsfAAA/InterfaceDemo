@@ -19,13 +19,18 @@ public class TestActivity extends BaseActivity<TestPersenter> {
         findViewById(R.id.test).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.testPersenter();
+                mBasePresenter.testPersenter();
             }
         });
     }
 
-    protected void testview(){
-        Toast.makeText(this,"回调成功",Toast.LENGTH_SHORT).show();
-        Log.i("wsf","成功回调");
+    protected void testview() {
+        Toast.makeText(mContext, "回调成功", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i("wsf", "TestActivity-->  onDestroy");
     }
 }

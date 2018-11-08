@@ -8,12 +8,6 @@
     tools:context="test.cmcc.com.basedemo.test.MainActivity">
 
     <Button
-        android:id="@+id/btn_mvp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="mvp" />
-
-    <Button
         android:id="@+id/btn_mvp_me"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

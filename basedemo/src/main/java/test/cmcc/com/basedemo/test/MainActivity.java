@@ -14,12 +14,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViewById(R.id.btn_mvp).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                startActivity(new Intent(MainActivity.this,MvpMgBaseVuActivity.class));
-            }
-        });
+
         findViewById(R.id.btn_mvp_me).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -9,6 +9,6 @@ import test.cmcc.com.basedemo.basemvp.base.BaseModel;
 public class TestModel extends BaseModel<TestPersenter> {
 
     protected void testModel(){
-        mPresenter.testSucceed();
+        mBasePresenter.testSucceed();
     }
 }

@@ -1,44 +1,50 @@
 package test.cmcc.com.basedemo.basemvp.base;
 
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 import test.cmcc.com.basedemo.basemvp.TUtil;
 import test.cmcc.com.basedemo.basemvp.bk.BindViewModel;
 
-public class BasePresenter<V extends AppCompatActivity, M extends BaseModel> implements BindViewModel<V, M> {
+public class BasePresenter<V extends FragmentActivity, M extends BaseModel> implements BindViewModel<M> {
 
     protected final String TAG = getClass().getSimpleName();
 
-    public V mView;
-    public M mModel;
-//    public RxManager mRxManager = new RxManager();
-
+    protected M mBaseModel;
+    protected V mBaseView;
 
     public BasePresenter() {
-        mView = bindView();
-        mModel = bindModel();
-        mModel.setmPresenter(this);
+        mBaseModel = bindModel();
+        mBaseModel.setmPresenter(this);
+        Log.i("wsf", TAG + " BasePresenter");
+    }
+
+    /**
+     * 绑定 view
+     *
+     * @param activity
+     */
+    public void addActivityInstanc(V activity) {
+        this.mBaseView = activity;
+        Log.i("wsf", TAG + " addActivityInstanc");
     }
 
     public void onDestroy() {
-//        mRxManager.clear();
-        if (mModel != null) {
-            mModel.onDestroy();
-            mModel = null;
+        Log.i("wsf", TAG + " onDestroy");
+        if (mBaseModel != null) {
+            mBaseModel.onDestroy();
+            mBaseModel = null;
         }
-        if (mView != null) {
-            mView = null;
-        }
+            mBaseView = null;
     }
 
-    @Override
-    public V bindView() {
-        return TUtil.getT(this, 0);
-    }
-
+    /**
+     * 绑定 model
+     *
+     * @return
+     */
     @Override
     public M bindModel() {
         return TUtil.getT(this, 1);
     }
-
 }

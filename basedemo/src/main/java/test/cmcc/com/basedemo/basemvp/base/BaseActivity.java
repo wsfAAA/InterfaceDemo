@@ -1,8 +1,10 @@
 package test.cmcc.com.basedemo.basemvp.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.WindowManager;
 
 import test.cmcc.com.basedemo.basemvp.TUtil;
@@ -12,18 +14,25 @@ import test.cmcc.com.basedemo.basemvp.TUtil;
  * Created by wsf on 2018/11/6.
  */
 
-public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity {
+public abstract class BaseActivity<P extends BasePresenter> extends FragmentActivity {
 
-    protected P mPresenter;
+    protected final String TAG = getClass().getSimpleName();
+
+    protected P mBasePresenter;
+
+    public Context mContext;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = this;
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(getLayoutResID());
+        mBasePresenter = TUtil.getT(this, 0);
+        mBasePresenter.addActivityInstanc(this);
         initView();
-        mPresenter = TUtil.getT(this, 0);
     }
+
 
     /**
      * 获得Layout文件id
@@ -39,9 +48,10 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mPresenter!=null){
-            mPresenter.onDestroy();
-            mPresenter=null;
+        Log.i("wsf", TAG + " onDestroy");
+        if (mBasePresenter != null) {
+            mBasePresenter.onDestroy();
+            mBasePresenter = null;
         }
     }
 
