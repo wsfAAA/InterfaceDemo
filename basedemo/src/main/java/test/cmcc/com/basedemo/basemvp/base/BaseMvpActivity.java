@@ -7,8 +7,8 @@ import test.cmcc.com.basedemo.basemvp.TUtil;
 
 /**
  * Created by wsf on 2018/11/14.
+ * 需要使用mvp模式可以继承BaseMvpActivity，无需只需要继承BaseActivity
  */
-
 public abstract class BaseMvpActivity<P extends BasePresenter> extends BaseActivity {
 
     protected P mBasePresenter;
