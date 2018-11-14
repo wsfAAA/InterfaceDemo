@@ -1,7 +1,6 @@
 package test.cmcc.com.basedemo.basemvp.base;
 
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 
 import test.cmcc.com.basedemo.basemvp.TUtil;
 import test.cmcc.com.basedemo.basemvp.bk.BindViewModel;
@@ -16,7 +15,6 @@ public class BasePresenter<V extends FragmentActivity, M extends BaseModel> impl
     public BasePresenter() {
         mBaseModel = bindModel();
         mBaseModel.setmPresenter(this);
-        Log.i("wsf", TAG + " BasePresenter");
     }
 
     /**
@@ -26,16 +24,14 @@ public class BasePresenter<V extends FragmentActivity, M extends BaseModel> impl
      */
     public void addActivityInstanc(V activity) {
         this.mBaseView = activity;
-        Log.i("wsf", TAG + " addActivityInstanc");
     }
 
     public void onDestroy() {
-        Log.i("wsf", TAG + " onDestroy");
         if (mBaseModel != null) {
             mBaseModel.onDestroy();
             mBaseModel = null;
         }
-            mBaseView = null;
+        mBaseView = null;
     }
 
     /**

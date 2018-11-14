@@ -1,8 +1,6 @@
 package test.cmcc.com.basedemo.basemvp.base;
 
 
-import android.util.Log;
-
 /**
  * Created by wsf on 2018/11/6.
  */
@@ -35,6 +33,5 @@ public class BaseModel<P extends BasePresenter> {
 
     public void onDestroy() {
         mBasePresenter = null;
-        Log.i("wsf", TAG + "  onDestroy");
     }
 }
