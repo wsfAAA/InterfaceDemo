@@ -9,5 +9,5 @@ import test.cmcc.com.basedemo.basemvp.base.BaseModel;
 
 public interface BindViewModel<M extends BaseModel> {
 
-    M bindModel();
+    M creatModel();
 }

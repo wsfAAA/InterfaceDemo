@@ -27,6 +27,12 @@ public class TestActivity extends BaseMvpActivity<TestPersenter> {
 
     }
 
+
+    @Override
+    public TestPersenter creatPersenter() {
+        return new TestPersenter();
+    }
+
     @Override
     protected void getLayoutResID() {
         setContentView(R.layout.activity_test);
@@ -40,6 +46,7 @@ public class TestActivity extends BaseMvpActivity<TestPersenter> {
     protected void onDestroy() {
         super.onDestroy();
     }
+
 
     @Override
     protected void reloadClickListener() {

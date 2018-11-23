@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import test.cmcc.com.basedemo.basemvp.TUtil;
 import test.cmcc.com.basedemo.basemvp.bk.BindViewModel;
 
-public class BasePresenter<V extends FragmentActivity, M extends BaseModel> implements BindViewModel<M> {
+public abstract class BasePresenter<V extends FragmentActivity, M extends BaseModel> implements BindViewModel<M> {
 
     protected final String TAG = getClass().getSimpleName();
 
@@ -13,8 +13,8 @@ public class BasePresenter<V extends FragmentActivity, M extends BaseModel> impl
     protected V mBaseView;
 
     public BasePresenter() {
-        mBaseModel = bindModel();
-        mBaseModel.setmPresenter(this);
+        mBaseModel = creatModel();
+        mBaseModel.setPresenter(this);
     }
 
     /**
@@ -34,13 +34,15 @@ public class BasePresenter<V extends FragmentActivity, M extends BaseModel> impl
         mBaseView = null;
     }
 
-    /**
-     * 绑定 model
-     *
-     * @return
-     */
-    @Override
-    public M bindModel() {
-        return TUtil.getT(this, 1);
-    }
+//    /**
+//     * 绑定 model, 通过反射
+//     *
+//     * @return
+//     */
+//    @Override
+//    public M bindModel() {
+//        return TUtil.getT(this, 1);
+//    }
+
+    public abstract M creatModel();
 }

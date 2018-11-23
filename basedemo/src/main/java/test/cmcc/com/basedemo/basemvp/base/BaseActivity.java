@@ -1,11 +1,14 @@
 package test.cmcc.com.basedemo.basemvp.base;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import test.cmcc.com.basedemo.R;
 
 
@@ -32,16 +36,19 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
     TextView mTvShare;
     TextView mTvLine;
 
-    View mStateLayout;  //数据状态样式
+    View mStateLayout;      //数据状态样式
     TextView mTvStateText;     //错误提示
     ImageView mImgRetry;        //重新加载
 
     LinearLayout mRootBaseView;
+    private Unbinder mUnbind;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);  //消除actionbar
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);  //设置全屏
         super.setContentView(R.layout.activity_base);//父类调用setContentView
         initLayout();
         mContext = this;
@@ -49,6 +56,7 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
         initTitleBar(false, false, false, "");
         initView();
     }
+
 
     /**
      * 父类引用setContentView ButterKnife无法初始化
@@ -74,7 +82,16 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
         if (mRootBaseView != null) {
             mRootBaseView.addView(view, lp);
         }
-        ButterKnife.bind(this);
+        mUnbind = ButterKnife.bind(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRootBaseView.removeAllViews();
+        if (mUnbind!=null){
+            mUnbind.unbind();
+        }
     }
 
     protected abstract void initView();

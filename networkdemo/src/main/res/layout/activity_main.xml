@@ -4,12 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="test.cmcc.com.networkdemo.MainActivity">
+    android:orientation="vertical"
+    tools:context="test.cmcc.com.networkdemo.activity.MainActivity">
 
     <Button
         android:id="@+id/mvp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="yuto_mg_mvp"/>
+        android:text="mg_mvp" />
 
+    <Button
+        android:id="@+id/retrofit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="retrofit" />
+
+    <Button
+        android:id="@+id/retrofitandrxjava"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="retrofitandrxjava" />
 </LinearLayout>

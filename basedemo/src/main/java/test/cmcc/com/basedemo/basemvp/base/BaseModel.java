@@ -20,15 +20,11 @@ public class BaseModel<P extends BasePresenter> {
      *
      * @param mPresenter
      */
-    public void setmPresenter(P mPresenter) {
+    public void setPresenter(P mPresenter) {
         this.mBasePresenter = mPresenter;
     }
 
     public BaseModel() {
-    }
-
-    public BaseModel(P mPresenter) {
-        this.mBasePresenter = mPresenter;
     }
 
     public void onDestroy() {

@@ -16,7 +16,8 @@ public abstract class BaseMvpActivity<P extends BasePresenter> extends BaseActiv
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBasePresenter = TUtil.getT(this, 0);//绑定Presenter
+//        mBasePresenter = TUtil.getT(this, 0);//通过反射 绑定Presenter
+        mBasePresenter = creatPersenter();
         if (mBasePresenter != null) {
             mBasePresenter.addActivityInstanc(this);
         }
@@ -30,4 +31,7 @@ public abstract class BaseMvpActivity<P extends BasePresenter> extends BaseActiv
             mBasePresenter = null;
         }
     }
+
+
+    public abstract P creatPersenter();
 }

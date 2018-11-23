@@ -9,6 +9,10 @@ import test.cmcc.com.basedemo.basemvp.base.BasePresenter;
 
 public class TestPersenter extends BasePresenter<TestActivity,TestModel> {
 
+    @Override
+    public TestModel creatModel() {
+        return new TestModel();
+    }
 
     protected void testPersenter() {
         mBaseModel.testModel();
@@ -17,4 +21,5 @@ public class TestPersenter extends BasePresenter<TestActivity,TestModel> {
     protected void testSucceed() {
         mBaseView.testview();
     }
+
 }
