@@ -1,8 +1,12 @@
 package test.cmcc.com.networkdemo.net.callback;
 
+import android.os.Handler;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import test.cmcc.com.networkdemo.net.ui.RetrofitLoader;
+import test.cmcc.com.networkdemo.net.ui.LoaderStyle;
 
 /**
  * Created by wsf on 2018/11/27.
@@ -14,12 +18,15 @@ public class RequestCallBack implements Callback<String> {
     private final IError IERROR;
     private final IFailure IFAILURE;
     private final ISuccess ISUCCESS;
+    private final LoaderStyle LOADER_STYLE;
+//    private static final Handler HANDLER = new Handler();
 
-    public RequestCallBack(IRequest irequest, IError ierror, IFailure ifailure, ISuccess isuccess) {
+    public RequestCallBack(IRequest irequest, IError ierror, IFailure ifailure, ISuccess isuccess, LoaderStyle loaderStyle) {
         IREQUEST = irequest;
         IERROR = ierror;
         IFAILURE = ifailure;
         ISUCCESS = isuccess;
+        this.LOADER_STYLE = loaderStyle;
     }
 
     @Override
@@ -29,22 +36,35 @@ public class RequestCallBack implements Callback<String> {
                 ISUCCESS.onSuccess(response.body());
             }
         } else {
-            if (IERROR!=null){
-                IERROR.onError(response.code(),response.message());
+            if (IERROR != null) {
+                IERROR.onError(response.code(), response.message());
             }
         }
-        if (IREQUEST!=null){
+        if (IREQUEST != null) {
             IREQUEST.onRequestEnd();
         }
+        onRequestFinish();
     }
 
     @Override
     public void onFailure(Call<String> call, Throwable t) {
-        if (IFAILURE!=null){
+        if (IFAILURE != null) {
             IFAILURE.onFailure(t);
         }
-        if (IREQUEST!=null){
+        if (IREQUEST != null) {
             IREQUEST.onRequestEnd();
+        }
+        onRequestFinish();
+    }
+
+    private void onRequestFinish() {
+        if (LOADER_STYLE != null) {
+//            HANDLER.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+            RetrofitLoader.stopLoading();
+//                }
+//            }, 2000);
         }
     }
 }

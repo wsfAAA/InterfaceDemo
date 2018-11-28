@@ -4,7 +4,7 @@ package test.cmcc.com.networkdemo.net;
  * Created by wsf on 2018/11/27.
  */
 
-public enum  OkhttpMethod {
+public enum HttpMethod {
     GET,
     POST,
     POST_RAW,

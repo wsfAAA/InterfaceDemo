@@ -1,16 +1,18 @@
 package test.cmcc.com.networkdemo.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 
 import com.blankj.utilcode.util.ToastUtils;
 
 import test.cmcc.com.networkdemo.R;
-import test.cmcc.com.networkdemo.net.RestClient;
+import test.cmcc.com.networkdemo.RestBean;
+import test.cmcc.com.networkdemo.net.RetrofitClient;
 import test.cmcc.com.networkdemo.net.callback.IError;
 import test.cmcc.com.networkdemo.net.callback.IFailure;
 import test.cmcc.com.networkdemo.net.callback.ISuccess;
+import test.cmcc.com.networkdemo.net.ui.LoaderStyle;
+import test.cmcc.com.networkdemo.util.GsonUtils;
 
 public class RxjavaActivity extends AppCompatActivity {
 
@@ -19,10 +21,12 @@ public class RxjavaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rxjava);
 
-        RestClient.builder().url("/wxarticle/chapters/json").success(new ISuccess() {
+        RetrofitClient.builder().url("/wxarticle/chapters/json")
+                .loader(this, LoaderStyle.BallBeatIndicator).success(new ISuccess() {
             @Override
             public void onSuccess(String response) {
-                ToastUtils.showShort(response);
+                RestBean restBean = GsonUtils.fromJson(response, RestBean.class);
+                ToastUtils.showShort("成功");
             }
         }).error(new IError() {
             @Override
@@ -32,8 +36,7 @@ public class RxjavaActivity extends AppCompatActivity {
         }).failure(new IFailure() {
             @Override
             public void onFailure(Throwable throwable) {
-                Log.i("wsf",""+throwable);
-                ToastUtils.showShort("失败:  "+throwable.toString());
+                ToastUtils.showShort("失败:  " + throwable.toString());
             }
         }).build().get();
     }

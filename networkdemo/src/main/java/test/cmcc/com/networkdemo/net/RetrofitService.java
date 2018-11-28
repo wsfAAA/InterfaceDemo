@@ -20,7 +20,7 @@ import retrofit2.http.Url;
  * Created by wsf on 2018/11/23.
  */
 
-public interface RestService {
+public interface RetrofitService {
 
     @GET
     Call<String> get(@Url String url, @QueryMap Map<String, Object> params);
