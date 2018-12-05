@@ -2,8 +2,11 @@ package test.cmcc.com.networkdemo.net;
 
 import android.content.Context;
 
+import java.io.File;
 import java.util.WeakHashMap;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -12,8 +15,9 @@ import test.cmcc.com.networkdemo.net.callback.IFailure;
 import test.cmcc.com.networkdemo.net.callback.IRequest;
 import test.cmcc.com.networkdemo.net.callback.ISuccess;
 import test.cmcc.com.networkdemo.net.callback.RequestCallBack;
-import test.cmcc.com.networkdemo.net.ui.RetrofitLoader;
+import test.cmcc.com.networkdemo.net.download.DownloadHandler;
 import test.cmcc.com.networkdemo.net.ui.LoaderStyle;
+import test.cmcc.com.networkdemo.net.ui.RetrofitLoader;
 
 /**
  * Created by wsf on 2018/11/26.
@@ -27,22 +31,32 @@ public class RetrofitClient {
     private final ISuccess ISUCCESS;
     private final IFailure IFAILURE;
     private final IError IERROR;
-    private final RequestBody BOOY;
+    private final RequestBody BODY;
     private final Context CONTEXT;
     private final LoaderStyle LOADER_STYLE;
+    private final File FILE;
+
+    private final String DOWNLOAD_DIR; //文件夹
+    private final String EXTENSION; //文件后缀
+    private final String NAME;  //文件名
 
     public RetrofitClient(String url, WeakHashMap<String, Object> params, IRequest request,
                           ISuccess iSuccess, IFailure iFailure, IError iError, RequestBody booy,
-                          Context context, LoaderStyle loaderStyle) {
+                          Context context, LoaderStyle loaderStyle, File file, String downloadDir,
+                          String extension, String name) {
         this.URL = url;
         this.IREQUEST = request;
         this.ISUCCESS = iSuccess;
         this.IFAILURE = iFailure;
         this.IERROR = iError;
-        this.BOOY = booy;
+        this.BODY = booy;
         PARAMS.putAll(params);
-        this.CONTEXT=context;
-        this.LOADER_STYLE=loaderStyle;
+        this.CONTEXT = context;
+        this.LOADER_STYLE = loaderStyle;
+        this.FILE = file;
+        this.DOWNLOAD_DIR = downloadDir;
+        this.EXTENSION = extension;
+        this.NAME = name;
     }
 
     public static RetrofitClientBuilder builder() {
@@ -62,11 +76,27 @@ public class RetrofitClient {
             case POST:
                 call = service.post(URL, PARAMS);
                 break;
+            case POST_RAW:
+                call = service.postRaw(URL, BODY);
+                break;
             case PUT:
                 call = service.put(URL, PARAMS);
                 break;
+            case PUT_RAW:
+                call = service.putRaw(URL, BODY);
+                break;
             case DELETE:
                 call = service.delete(URL, PARAMS);
+                break;
+            case UPLOAD:
+                if (FILE == null) {
+                    throw new RuntimeException("You have to pass in the file or file path ");
+                }
+                final RequestBody requestBody =
+                        RequestBody.create(MediaType.parse(MultipartBody.FORM.toString()), FILE);
+                final MultipartBody.Part body =
+                        MultipartBody.Part.createFormData("file", FILE.getName(), requestBody);
+                call = service.upload(URL, body);
                 break;
             default:
                 break;
@@ -82,7 +112,7 @@ public class RetrofitClient {
     }
 
     private Callback<String> getRequestCallback() {
-        return new RequestCallBack(IREQUEST, IERROR, IFAILURE, ISUCCESS,LOADER_STYLE);
+        return new RequestCallBack(IREQUEST, IERROR, IFAILURE, ISUCCESS, LOADER_STYLE);
     }
 
     public void get() {
@@ -90,14 +120,38 @@ public class RetrofitClient {
     }
 
     public void post() {
-        request(HttpMethod.POST);
+        if (BODY == null) {
+            request(HttpMethod.POST);
+        } else {
+            if (!PARAMS.isEmpty()) {
+                throw new RuntimeException("params must be null!");
+            }
+            request(HttpMethod.POST_RAW);
+        }
     }
 
     public void put() {
-        request(HttpMethod.PUT);
+        if (BODY == null) {
+            request(HttpMethod.PUT);
+        } else {
+            if (!PARAMS.isEmpty()) {
+                throw new RuntimeException("params must be null!");
+            }
+            request(HttpMethod.PUT_RAW);
+        }
     }
 
     public void delete() {
         request(HttpMethod.DELETE);
+    }
+
+    public void upload() {
+        request(HttpMethod.UPLOAD);
+    }
+
+    public final void download() {
+        new DownloadHandler(URL, IREQUEST, DOWNLOAD_DIR, EXTENSION, NAME,
+                ISUCCESS, IFAILURE, IERROR)
+                .handleDownload();
     }
 }

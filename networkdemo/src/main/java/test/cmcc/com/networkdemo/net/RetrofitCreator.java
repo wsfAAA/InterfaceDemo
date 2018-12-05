@@ -59,6 +59,7 @@ public class RetrofitCreator {
         private static final OkHttpClient OK_HTTP_CLIENT = new OkHttpClient.Builder()
                 .connectTimeout(CONNECT_TIME_OUT, TimeUnit.SECONDS)
                 .readTimeout(READ_TIME_OUT, TimeUnit.SECONDS)
+//                .addInterceptor()  //添加拦截器  参考MiguClient getUnsafeOkHttpClient
                 .build();
     }
 

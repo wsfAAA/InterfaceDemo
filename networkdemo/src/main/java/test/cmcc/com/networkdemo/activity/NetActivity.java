@@ -2,6 +2,7 @@ package test.cmcc.com.networkdemo.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.blankj.utilcode.util.ToastUtils;
 
@@ -14,13 +15,43 @@ import test.cmcc.com.networkdemo.net.callback.ISuccess;
 import test.cmcc.com.networkdemo.net.ui.LoaderStyle;
 import test.cmcc.com.networkdemo.util.GsonUtils;
 
-public class RxjavaActivity extends AppCompatActivity {
+public class NetActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rxjava);
 
+        findViewById(R.id.get).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                get();
+            }
+        });
+
+        findViewById(R.id.upload).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                upload();
+            }
+        });
+    }
+
+    private void upload() {
+        RetrofitClient.builder().url("").success(new ISuccess() {
+            @Override
+            public void onSuccess(String response) {
+
+            }
+        }).failure(new IFailure() {
+            @Override
+            public void onFailure(Throwable throwable) {
+
+            }
+        }).file("").build().upload();
+    }
+
+    private void get() {
         RetrofitClient.builder().url("/wxarticle/chapters/json")
                 .loader(this, LoaderStyle.BallBeatIndicator).success(new ISuccess() {
             @Override

@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.retrofitandrxjava).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, RxjavaActivity.class));
+                startActivity(new Intent(MainActivity.this, NetActivity.class));
             }
         });
     }

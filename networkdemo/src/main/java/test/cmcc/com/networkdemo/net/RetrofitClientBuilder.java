@@ -2,6 +2,7 @@ package test.cmcc.com.networkdemo.net;
 
 import android.content.Context;
 
+import java.io.File;
 import java.util.WeakHashMap;
 
 import okhttp3.MediaType;
@@ -27,9 +28,14 @@ public final class RetrofitClientBuilder {
     private RequestBody mBody = null;
     private Context mContext = null;
     private LoaderStyle mLoaderStyle = null;
+    private File mFile = null;
+
+    private String mDownloadDir = null;  //文件夹
+    private String mExtension = null;   //文件后缀名
+    private String mName = null;    //文件名
 
     public final RetrofitClient build() {
-        return new RetrofitClient(mUrl, PARAMS, mIRequest, mISuccess, mIFailure, mIError, mBody,mContext,mLoaderStyle);
+        return new RetrofitClient(mUrl, PARAMS, mIRequest, mISuccess, mIFailure, mIError, mBody, mContext, mLoaderStyle,mFile,mDownloadDir,mExtension,mName);
     }
 
     public RetrofitClientBuilder() {
@@ -42,9 +48,8 @@ public final class RetrofitClientBuilder {
     }
 
     /**
-     * 请求体
-     *
-     * @param raw json格式
+     * 源数据  json
+     * @param raw json格式 或者加密后josn String
      * @return
      */
     public final RetrofitClientBuilder raw(String raw) {
@@ -73,6 +78,16 @@ public final class RetrofitClientBuilder {
         return this;
     }
 
+    public final RetrofitClientBuilder file(File file) {
+        this.mFile = file;
+        return this;
+    }
+
+    public final RetrofitClientBuilder file(String file) {
+        this.mFile = new File(file);
+        return this;
+    }
+
     public final RetrofitClientBuilder success(ISuccess iSuccess) {
         this.mISuccess = iSuccess;
         return this;
@@ -90,6 +105,7 @@ public final class RetrofitClientBuilder {
 
     /**
      * 加载样式支持 LoaderStyle 枚举类型
+     *
      * @param context
      * @param style
      * @return
@@ -102,12 +118,29 @@ public final class RetrofitClientBuilder {
 
     /**
      * 默认样式 BallClipRotatePulseIndicator
+     *
      * @param context
      * @return
      */
     public final RetrofitClientBuilder loader(Context context) {
         this.mContext = context;
         this.mLoaderStyle = LoaderStyle.BallClipRotatePulseIndicator;
+        return this;
+    }
+
+
+    public final RetrofitClientBuilder name(String name) {
+        this.mName = name;
+        return this;
+    }
+
+    public final RetrofitClientBuilder dir(String dir) {
+        this.mDownloadDir = dir;
+        return this;
+    }
+
+    public final RetrofitClientBuilder extension(String extension) {
+        this.mExtension = extension;
         return this;
     }
 }

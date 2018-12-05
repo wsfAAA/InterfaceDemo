@@ -24,7 +24,7 @@
         <activity android:name=".basevu.testrun.MvpMgBaseVuActivity" />
         <activity android:name=".basevu.testrun.MvpPresenterActivity" />
         <activity android:name=".activity.RetrofitActivity" />
-        <activity android:name=".activity.RxjavaActivity"></activity>
+        <activity android:name=".activity.NetActivity"></activity>
     </application>
 
 </manifest>
