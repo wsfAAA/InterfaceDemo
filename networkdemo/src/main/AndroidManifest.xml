@@ -3,9 +3,10 @@
     package="test.cmcc.com.networkdemo">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -24,7 +25,8 @@
         <activity android:name=".basevu.testrun.MvpMgBaseVuActivity" />
         <activity android:name=".basevu.testrun.MvpPresenterActivity" />
         <activity android:name=".activity.RetrofitActivity" />
-        <activity android:name=".activity.NetActivity"></activity>
+        <activity android:name=".activity.NetActivity" />
+        <activity android:name=".activity.RxNetActivity"></activity>
     </application>
 
 </manifest>

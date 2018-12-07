@@ -44,7 +44,7 @@ public class RetrofitCreator {
     }
 
     /**
-     * RetrofitService 实例
+     * ApiService 实例
      */
     public static final class RestServiceHolder {
         private static final RetrofitService REAST_SERVICE = RetrofitHolder.RETROFIT_CLICENT.create(RetrofitService.class);

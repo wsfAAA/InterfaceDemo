@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 XXPermissions.with(MainActivity.this)
-                        .permission(Permission.READ_EXTERNAL_STORAGE,Permission.WRITE_EXTERNAL_STORAGE)
+                        .permission(Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE)
                         .request(new OnPermission() {
 
                             @Override
@@ -47,10 +47,17 @@ public class MainActivity extends AppCompatActivity {
                         });
             }
         });
-        findViewById(R.id.retrofitandrxjava).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.retrofit2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, NetActivity.class));
+            }
+        });
+
+        findViewById(R.id.rxjava).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, RxNetActivity.class));
             }
         });
     }
