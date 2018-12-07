@@ -37,6 +37,9 @@ public class NetActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 下载使用
+     */
     private void upload() {
         RetrofitClient.builder().url("").success(new ISuccess() {
             @Override
@@ -51,15 +54,19 @@ public class NetActivity extends AppCompatActivity {
         }).file("").build().upload();
     }
 
+    /**
+     * git 使用
+     */
     private void get() {
         RetrofitClient.builder().url("/wxarticle/chapters/json")
-                .loader(this, LoaderStyle.BallBeatIndicator).success(new ISuccess() {
-            @Override
-            public void onSuccess(String response) {
-                RestBean restBean = GsonUtils.fromJson(response, RestBean.class);
-                ToastUtils.showShort("成功");
-            }
-        }).error(new IError() {
+                .loader(this, LoaderStyle.BallBeatIndicator)
+                .success(new ISuccess() {
+                    @Override
+                    public void onSuccess(String response) {
+                        RestBean restBean = GsonUtils.fromJson(response, RestBean.class);
+                        ToastUtils.showShort("成功");
+                    }
+                }).error(new IError() {
             @Override
             public void onError(int code, String msg) {
                 ToastUtils.showShort(code + "  " + msg);

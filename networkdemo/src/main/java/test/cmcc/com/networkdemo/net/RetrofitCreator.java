@@ -37,7 +37,7 @@ public class RetrofitCreator {
     public static final class RetrofitHolder {
         private static final Retrofit RETROFIT_CLICENT = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .addConverterFactory(ScalarsConverterFactory.create())//添加 String类型[ Scalars (primitives, boxed, and String)] 转换器
+                .addConverterFactory(ScalarsConverterFactory.create())//添加 String类型  转换器
 //                .addConverterFactory(GsonConverterFactory.create()) //设置数据解析器
                 .client(OkHttpClientHolder.OK_HTTP_CLIENT)
                 .build();

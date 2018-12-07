@@ -41,7 +41,6 @@ public final class RetrofitClientBuilder {
     public RetrofitClientBuilder() {
     }
 
-    //不需要别人修改方法 final
     public final RetrofitClientBuilder url(String mUrl) {
         this.mUrl = mUrl;
         return this;
@@ -56,7 +55,6 @@ public final class RetrofitClientBuilder {
         this.mBody = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), raw);
         return this;
     }
-
     /**
      * 添加参数
      *
@@ -73,11 +71,6 @@ public final class RetrofitClientBuilder {
         return this;
     }
 
-    public final RetrofitClientBuilder onRequest(IRequest mIRequest) {
-        this.mIRequest = mIRequest;
-        return this;
-    }
-
     public final RetrofitClientBuilder file(File file) {
         this.mFile = file;
         return this;
@@ -88,6 +81,8 @@ public final class RetrofitClientBuilder {
         return this;
     }
 
+
+    //////////////////////////////////////相关错误成功接口回调/////////////////////////////////////
     public final RetrofitClientBuilder success(ISuccess iSuccess) {
         this.mISuccess = iSuccess;
         return this;
@@ -103,6 +98,12 @@ public final class RetrofitClientBuilder {
         return this;
     }
 
+    public final RetrofitClientBuilder onRequest(IRequest mIRequest) {
+        this.mIRequest = mIRequest;
+        return this;
+    }
+
+    ///////////////////////////////////////加载样式//////////////////////////////////////////////
     /**
      * 加载样式支持 LoaderStyle 枚举类型
      *
@@ -129,6 +130,7 @@ public final class RetrofitClientBuilder {
     }
 
 
+    ///////////////////////////////////下载相关////////////////////////////////////////////////////
     public final RetrofitClientBuilder name(String name) {
         this.mName = name;
         return this;
